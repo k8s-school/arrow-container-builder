@@ -16,14 +16,3 @@ RUN apt-get update -y && \
     apt-get install -y -V libparquet-dev=$ARROW_VERSION && \
     rm -rf /var/lib/apt/lists/*
 
-
-# Build and install parquet2csv
-ENV PARQUET2CSV_BUILD_DIR=$SRC_DIR/parquet2csv/build
-ENV VERSION=main
-RUN git clone --depth 1 -b "$VERSION" https://github.com/lsst-dm/parquet2csv.git $SRC_DIR/parquet2csv
-
-RUN mkdir $PARQUET2CSV_BUILD_DIR
-WORKDIR $PARQUET2CSV_BUILD_DIR
-
-RUN cmake .. && \
-  make -j8
